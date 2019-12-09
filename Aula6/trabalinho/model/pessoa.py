@@ -1,28 +1,27 @@
 class Pessoa:
-    def __init__(self, nome, sobrenome, cpf, id=None):
-        self.id = id
-        self.nome = nome
-        self.sobrenome = sobrenome
-        self.cpf = cpf
+    __id = 0
+    __nome = ''
+    __sobrenome = ''
+    __cpf = 0
     
     #getter
     def get_nome(self):
-        return self.nome
+        return self.__nome
 
     def get_sobrenome(self):
-        return self.sobrenome
+        return self.__sobrenome
     
     def get_cpf(self):
-        return self.cpf
+        return self.__cpf
     
     #setters
 
     def set_nome(self, nome):
-        self.nome = nome
+        self.__nome = nome
 
     def set_sobrenome(self, sobrenome):
-        self.sobrenome = sobrenome
+        self.__sobrenome = sobrenome
     
     def set_cpf(self, cpf):
-        self.cpf = cpf
+        self.__cpf = cpf
         

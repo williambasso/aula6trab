@@ -3,31 +3,30 @@ from trabalinho.model.pessoa import Pessoa
 # sys.path.append('../dao')
 
 class Funcionario(Pessoa):
-    def __init__(self, salario, cargo, pis):
-        self.salario = salario
-        self.cargo = cargo
-        self.pis = pis
+    __salario = 0
+    __cargo = ''
+    __pis = 0
 
     #getter
     def get_salario(self):
-        return self.salario
+        return self.__salario
 
     def get_cargo(self):
-        return self.cargo
+        return self.__cargo
     
     def get_pis(self):
-        return self.pis
+        return self.__pis
     
     #setters
 
     def set_salario(self, salario):
-        self.salario = salario
+        self.__salario = salario
 
     def set_cargo(self, cargo):
-        self.cargo = cargo
+        self.__cargo = cargo
     
     def set_pis(self, pis):
-        self.pis = pis
+        self.__pis = pis
 
 
         
