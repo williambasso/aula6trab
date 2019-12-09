@@ -1,6 +1,15 @@
 {% extends "layout.html" %}
 {% block content%}
 
+{% for p in pessoa %}
+
+{% p.id        %}
+{% p.nome      %}
+{% p.sobrenome %}
+{% p.cpf       %}
+{% p.cargo     %}
+{% p.pis       %}
+{% p.salario   %}
 
 
 {% endblock %}
