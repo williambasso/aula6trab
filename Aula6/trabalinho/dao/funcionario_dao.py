@@ -1,24 +1,31 @@
-from trabalinho.dao.basedao import BaseDao
+import sys
+sys.path.append("C:/Users/900213/Desktop/trabalinho/")
 
+# Importação do arquivo com a classe que realiza conexão com o banco de dados
+from dao.basedao import BaseDao
+
+# Importação da classe Pessoa, que recebe os dados pessoais dos funcionários
+from model.pessoa import Pessoa
+
+# Classe herdada da classe de conexão com o banco de dados e que irá enviar os comandos para as açlões no banco de dados
 class FuncionarioDao(BaseDao):
     
-
     def listar(self):
-        return super().listar('select * from funcionarios')
+        return super().listar('SELECT * from funcionarios')
 
     def buscar_por_id(self, id):
-        return super().buscar_por_id(f'select from funcionarios where id = {id}')
+        return super().buscar_por_id(f'SELECT FROM funcionarios WHERE id = {id}')
 
     def inserir(self, nome, sobrenome, cpf, cargo, salario, pis, equipe_trabalho, linguagem_programacao):
         super().inserir(
-            f'insert into funcionarios( nome, sobrenome, cpf, cargo, salario, pis, equipe_trabalho, linguagem_programacao) values("{nome}" , "{sobrenome}" , "{cpf}" , "{cargo}" , {salario} , {pis}, "{equipe_trabalho}", "{linguagem_programacao}")')
+            f'INSERT INTO funcionarios( nome, sobrenome, cpf, cargo, salario, pis, equipe_trabalho, linguagem_programacao) VALUES("{nome}" , "{sobrenome}" , "{cpf}" , "{cargo}" , {salario} , {pis}, "{equipe_trabalho}", "{linguagem_programacao}")')
 
-    def alterar(self, id, nome, sobrenome, cpf, cargo, salario, pis, equipe_trabalho, linguagem_programacao):
+    def editar(self, p:Pessoa):
         super().alterar(
-            f'update funcionarios set nome = "{nome}" , sobrenome = "{sobrenome}", cpf = "{cpf}", cargo = "{cargo}", salario = {salario}, pis = {pis},equipe_trabalho = "{equipe_trabalho}", linguagem_programacao = "{linguagem_programacao}" where id = {id}')
+            f'UPDATE funcionarios SET nome = "{p.nome}" WHERE id = {id} , sobrenome = "{p.sobrenome}", cpf = "{p.cpf}", cargo = "{p.cargo}", salario = {p.salario}, pis = {p.pis},equipe_trabalho = "{p.equipe_trabalho}", linguagem_programacao = "{p.linguagem_programacao}" where id = {id}')
 
     def deletar(self, id):
-        super().deletar(f'delete from funcionarios where id = {id}')
+        super().deletar(f'DELETE FROM funcionarios WHERE id = {id}')
 
 
 #inserir('Joao','Joao', 6456465) 
