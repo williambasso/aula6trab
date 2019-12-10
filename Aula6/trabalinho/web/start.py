@@ -1,65 +1,77 @@
 import sys
-sys.path.append("C:/Users/900213/Desktop/trabalinho/")
+sys.path.append("C:/Users/900224/Desktop/Aula6/trabalinho/")
 
 from dao.funcionario_dao import FuncionarioDao
-from model.pessoa import Pessoa
-from flask import Flask, render_template, request, redirect
+from dao.linguagem_dao import LinguagemDao
+from dao.equipe_dao import EquipeDao
 
+from model.funcionario import Funcionario
+from model.linguagem_programacao import LinguagemProgramacao
+from model.equipe_trabalho import EquipeTrabalho
+
+from flask import Flask, render_template, request, redirect
 app = Flask(__name__)
 
 @app.route('/')
 def iniciar():
     return render_template('home.html')
 
+
 @app.route('/listagem')
 def listar():
-    pessoa = FuncionarioDao()
-    listar = pessoa.listar()
+    pessoa = FuncionarioDao
+    listar = pessoa.listar
     return render_template('listagem.html', pessoa = listar)
 
 @app.route('/cadastrar')
 def cadastrar():
     return render_template('cadastro.html')
 
-@app.route('/editar')    
-def editar():
-    id = request.args['id']
-    pessoa = FuncionarioDao()
-    pessoa.editar(id)
-    return render_template('editar.html', pessoa = editar)
 
 @app.route('/salvar', methods = ['POST'])
 def salvar():
+    # nome_linguagem =  request.form['nome_linguagem']
+    # linguagem = LinguagemProgramacao(nome_linguagem)
+    # dao_ling = LinguagemDao()
+    # linguagem.set_id( dao_ling.salvar_linguagem(linguagem) )
+
+    # nome_equipe = request.form['nome_equipe']
+    # equipe = EquipeTrabalho(nome_equipe)
+    # dao_equip = EquipeDao()
+    # equipe.set_id( dao_equip.salva_equipe(equipe) )
+
     nome = request.form['nome']
     sobrenome = request.form['sobrenome']
     cpf = request.form['cpf']
-    cargo = request.form['cargo']
-    pis = request.form['pis']
     salario = request.form['salario']
-    equipe_trabalho = request.form['equipe_trabalho']
-    linguagem_programacao = request.form['linguagem_programacao']
-    pessoa = FuncionarioDao()    
-    pessoa.inserir(nome,sobrenome,cpf, cargo, pis, salario, equipe_trabalho, linguagem_programacao)
+    cargo = request.form['cargo']
+    pis = request.form['pis']    
+
+    funcionario = Funcionario(nome, sobrenome, cpf, salario, cargo, pis, linguagem, equipe)
+
+    func_dao = FuncionarioDao()   
+    func_dao.inserir(funcionario)
     return redirect('/')
 
-# @app.route('/salvar_editar', methods=['POST'])
-# def editar_salvar():
-#     id = request.form['id']
-#     nome = request.form['nome']
-#     sobrenome = request.form['sobrenome']
-#     cpf = request.form['cpf']
-#     cargo = request.form['cargo']
-#     pis = request.form['pis']
-#     salario = request.form['salario']
-#     pessoa = FuncionarioDao()
-#     pessoa.editar_salvar(id, nome,sobrenome,cpf, cargo, pis, salario)
-#     return redirect('/')
+@app.route('/editar', methods=['POST'])
+def editar():
+    id = request.form['id']
+    nome = request.form['nome']
+    sobrenome = request.form['sobrenome']
+    cpf = request.form['cpf']
+    salario = request.form['salario']
+    cargo = request.form['cargo']
+    pis = request.form['pis']
+    funcionario = Funcionario(nome, sobrenome, cpf, salario, cargo, pis, id=id)
+    dao = FuncionarioDao()
+    dao.alterar(funcionario)
+    return redirect('/')
 
 @app.route('/deletar')
 def deletar():
     id = request.args['id']
-    pessoa = FuncionarioDao()
-    pessoa.deletar(id)
+    funcionario = FuncionarioDao()
+    funcionario.deletar(id)
     return redirect('listagem.html')
 
 app.run(port=80, debug=True)
